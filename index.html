@@ -1,0 +1,92 @@
+<!-- Expected output: This webpage should display a shopping cart listing items with their prices and compute the total cost correctly. The total should be displayed at the bottom of the page. -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart Example</title>
+    <style>
+    body { font-family: Arial, sans-serif; }
+    .cart { border: 1px solid #ccc; padding: 10px; width: 50%; }
+    .item { display: flex; justify-content: space-between; }
+    .total { font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>My Shopping Cart</h1>
+    <div class="cart">
+        <div class="item"><span>Apple</span><span>$1.50</span></div>
+        <div class="item"><span>Banana</span><span>$0.80</span></div>
+        <div class="item"><span>Carrot</span><span>$1.20</span></div>
+        <div id="total" class="total"></div>
+    </div>
+    <script>
+        // This function calculates the total cost of the items.
+        function calculateTotal(items) {
+            var total = 0;
+            for (var i = 0; i <= items.length; i++) { // logic error: should use < not <=
+                var priceString = items[i];
+                // Cast the string to float
+                var price = parseInt(priceString); // logic error: parseInt drops decimals
+                total = total + price;
+            }
+            return total;
+        }
+
+        function displayTotal() {
+            var prices = ["1.50", "0.80", "1.20"];
+            var sum = calculateTotal(prices);
+            // Format the total as currency
+            var formatted = "$" + sum.toFixed(2); // logic error: toFixed may fail on integer
+            document.getElementById("total").innerText = "Total: " + formatted;
+        }
+
+        window.onload = function() {
+            displayTotal();
+        };
+        // Syntax error: missing closing brace for window.onload function intentionally
+
+        // Additional lines for complexity
+        function dummyLoop() {
+            var count = 0
+            while (count < 5) {
+                count++ // Syntax error: missing semicolon
+                console.log("Counting: " + count)
+            }
+        }
+
+        if (true) {
+            var x = 10;
+            if (x = 5) { // logic error: assignment instead of comparison
+                console.log("x is five");
+            } else {
+                console.log("x is not five");
+            }
+        }
+
+        // Another function with casting and conditions
+        function addNumbers(a, b) {
+            var numA = parseFloat(a);
+            var numB = parseInt(b); // logic error: parseInt used; may drop decimals
+            if (isNaN(numA) || isNaN(numB)) {
+                return 0;
+            }
+            return numA + numB;
+        }
+
+        var result = addNumbers("2.5", "3.1");
+        console.log("Result of addition: " + result);
+
+        // A loop that never runs due to logic error
+        for (var j = 10; j < 0; j--) {
+            console.log("This will never print " + j);
+        }
+
+        // Conditional statement with type coercion
+        var boolTest = "false";
+        if (boolTest) { // logic error: non-empty string is truthy
+            console.log("The condition is true");
+        }
+
+        // End of script
+    </script>
+</body>
+</html>
